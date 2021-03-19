@@ -1,13 +1,16 @@
 // ==UserScript==
-// @name        IntraGroup Peer Reviews
-// @description Assign intra-group peer reviews
-// @namespace   https://github.com/jamesjonesmath/canvancement
+// @name        Canvas IntraGroup Peer Reviews for ALU
+// @description Assign intra-group peer reviews with a limit of 1 review per student
+// @namespace   https://github.com/dvorgbe/canvancement
 // @match       https://learnx.alueducation.com/courses/*/assignments/*/peer_reviews
 // @require     https://cdn.jsdelivr.net/npm/bottleneck@2/light.min.js
 // @version     2
 // @grant       none
 // ==/UserScript==
 /* global Bottleneck */
+
+// Originally develeped by https://github.com/jamesjonesmath
+// Edited by https://github.com/dvorgbe for use at African Leadership University
 
 (function () {
   'use strict';
