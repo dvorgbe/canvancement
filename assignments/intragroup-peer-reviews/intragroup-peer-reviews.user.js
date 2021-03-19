@@ -211,11 +211,29 @@
     }
   }
 
+  function getRndInteger(min, max) {
+      return Math.floor(Math.random() * (max - min) ) + min;
+  }
+
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+  }
+
   function computeNeeds(groups) {
     const existing = getUsers();
     const adds = [];
+
     for (let i = 0; i < groups.length; i++) {
       const users = groups[i].users;
+
+      // ALU implementation: randomly shuffle order of students in the group
+      shuffleArray(users);
+
       for (let j = 0; j < users.length; j++) {
         const userId = users[j];
         if (typeof existing[userId] === 'undefined') {
@@ -223,15 +241,23 @@
         }
         const existingReviews = existing[userId];
         const reviews = [];
-        for (let k = 0; k < users.length; k++) {
-          if (j === k || typeof existing[users[k]] === 'undefined') {
-            continue;
-          }
-          const dstUser = users[k];
-          if (existingReviews.indexOf(dstUser) === -1) {
-            reviews.push(dstUser);
-          }
+
+        // ALU implementation: assign one review to each group member
+        if (typeof existing[users[j]] === 'undefined' || existingReviews.length !== 0) {
+          continue;
         }
+
+       let dstUser = null;
+       if(j == users.length-1){
+         dstUser = users[0];
+       }else{
+         dstUser = users[j+1];
+       }
+
+       if (existingReviews.indexOf(dstUser) === -1) {
+            reviews.push(dstUser);
+       }
+
         if (reviews.length) {
           adds.push({
             userId: userId,
